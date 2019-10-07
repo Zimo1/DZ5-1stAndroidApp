@@ -1,5 +1,7 @@
 package ru.netology.kotlin.dz3_1standroidapp.adapter.postfeed
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.kotlin.dz3_1standroidapp.adapter.PostAdapter
@@ -15,11 +17,9 @@ class AdvertViewHolder(adapter: PostAdapter, view: View)
     : BaseViewHolder(adapter, view) {
     init { //При инициализации вьюхолдера назначить универсальный лиснер кнопкам на форме
         with (itemView) {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                likeBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], likeQtyTv))
-                commentBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], commentQtyTv))
-                shareBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], shareQtyTv))
-            }
+            likeBtn.setOnClickListener(btnListener(likeQtyTv))
+            commentBtn.setOnClickListener(btnListener(commentQtyTv))
+            shareBtn.setOnClickListener(btnListener(shareQtyTv))
         }
     }
 
@@ -39,6 +39,15 @@ class AdvertViewHolder(adapter: PostAdapter, view: View)
                 commentBtn,
                 shareBtn
             )
+            //Дополнительно: открыть рекламный сайт по ссылке в post.reference
+            pictureIv.setOnClickListener {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse(post.reference)
+                }
+                context.startActivity(intent)
+            }
         }
+
     }
 }

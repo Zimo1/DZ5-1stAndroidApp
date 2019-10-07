@@ -59,3 +59,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+// Загрузка на гитхаб через командную строку в Терминале: git push origin master

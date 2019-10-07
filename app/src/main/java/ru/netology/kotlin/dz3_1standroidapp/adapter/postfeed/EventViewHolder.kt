@@ -19,11 +19,9 @@ class EventViewHolder(adapter: PostAdapter, view: View)
     : BaseViewHolder(adapter, view) {
     init { //При инициализации вьюхолдера назначить универсальный лиснер кнопкам на форме
         with (itemView) {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                likeBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], likeQtyTv))
-                commentBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], commentQtyTv))
-                shareBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], shareQtyTv))
-            }
+            likeBtn.setOnClickListener(btnListener(likeQtyTv))
+            commentBtn.setOnClickListener(btnListener(commentQtyTv))
+            shareBtn.setOnClickListener(btnListener(shareQtyTv))
         }
     }
 
@@ -44,8 +42,7 @@ class EventViewHolder(adapter: PostAdapter, view: View)
                 shareBtn
             )
             //Дополнительно: Открыть карту по нажатию на кнопку locationBtn.
-            //Координаты берутся из текущего элемента списка post и каждый раз разные, поэтому
-            //лиснер этой кнопки прописывается здесь, а не в EventViewHolder, как у остальных кнопок
+            //Координаты берутся из текущего элемента списка post и каждый раз разные
             locationBtn.setOnClickListener {
                 val intent = Intent().apply {
                     action = Intent.ACTION_VIEW

@@ -15,11 +15,9 @@ class PostViewHolder(adapter: PostAdapter, view: View)
     : BaseViewHolder(adapter, view) {
     init { //При инициализации вьюхолдера назначить универсальный лиснер кнопкам на форме
         with (itemView) {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                likeBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], likeQtyTv))
-                commentBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], commentQtyTv))
-                shareBtn.setOnClickListener(btnListener(adapter.list[adapterPosition], shareQtyTv))
-            }
+                likeBtn.setOnClickListener(btnListener(likeQtyTv))
+                commentBtn.setOnClickListener(btnListener(commentQtyTv))
+                shareBtn.setOnClickListener(btnListener(shareQtyTv))
         }
     }
 

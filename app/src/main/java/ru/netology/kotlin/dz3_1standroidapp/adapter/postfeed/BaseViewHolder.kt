@@ -53,12 +53,16 @@ abstract class BaseViewHolder(val adapter: PostAdapter, view: View) : RecyclerVi
     } //-----Конец fun bind------
 
     //Создадим универсальный listener, работающий для любых наших 3 общих кнопок
-    fun btnListener(post: Post, qtyView: TextView) = View.OnClickListener {
+    fun btnListener(qtyView: TextView) = View.OnClickListener {
+            if (adapterPosition == RecyclerView.NO_POSITION)
+                TODO("Какая-то фигня случилась с адаптером RecyclerView, он не видит текущую позицию")
+            //Получить элемент списка list, соответствующий текущей позиции адаптера
+            val post: Post = adapter.list[adapterPosition]
             var trigger =
                 post::likedByMe //инициализация переменной для хранения ссылки на свойство-флаг нажатия
             var counter =
                 post::likesQty //инициализация переменной для хранения ссылки на свойство-количество нажатий
-            when (it.id) {
+            when (it.id) { //в зависимости от типа кнопки связать эти переменные с соответствующими полями
                 R.id.likeBtn -> {
                     trigger = post::likedByMe
                     counter = post::likesQty
@@ -81,7 +85,7 @@ abstract class BaseViewHolder(val adapter: PostAdapter, view: View) : RecyclerVi
             trigger.set(!trigger.get())
             //перерисовать текущую кнопку и надпись рядом с ней
             redrawCurBtn(it as ImageButton, qtyView, trigger.get(), counter.get())
-            adapter.notifyItemChanged(adapterPosition)
+            //adapter.notifyItemChanged(adapterPosition)
 
     } //--------Конец btnListener---------
 
@@ -91,7 +95,7 @@ abstract class BaseViewHolder(val adapter: PostAdapter, view: View) : RecyclerVi
                      qtyView: TextView,
                      pressed: Boolean,
                      qty: Int) {
-        when (btn.id) { //В зависимости от типа и состояния кнопки картинки на ней разные:
+        when (btn.id) { //В зависимости от типа и состояния кнопки, картинки на ней разные:
             R.id.likeBtn -> {btn.setImageResource(if (pressed) R.drawable.ic_favorite_active_24dp
                                                   else R.drawable.ic_favorite_inactive_24dp)
             }
